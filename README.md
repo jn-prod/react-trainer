@@ -2,6 +2,8 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+=> [Demo link](https://jn-prod.github.io/react-trainer/)
+
 ## Available Scripts
 
 In the project directory, you can run:
