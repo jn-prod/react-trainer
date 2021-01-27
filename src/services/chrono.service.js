@@ -1,5 +1,3 @@
-import Chrono from "../components/Chrono/Chrono";
-
 class ChronoService {
     toHHMMSS(n) {
         const sec = parseInt(n, 10); // don't forget the second param

@@ -5,42 +5,49 @@ import './Chrono.css'
 class Chrono extends React.Component {
     constructor(props){
         super(props)
-        this.state = { live: 0};
-        this.timer = null;
+        this.state = { n: 0, timer: null};
+        this.toggle = this.toggle.bind(this)
+        this.reset = this.reset.bind(this)
         this.chronoService = new ChronoService()
     }
 
-    // componentDidMount() {
-    //     this.timer = window.setInterval(this.updateChrono.bind(this), 1000)
-    // }
-
     componentWillUnmount() {
-        window.clearInterval(this.timer)
+        this.pause()
     }
 
     updateChrono() {
-        this.setState({live: this.state.live + 1})
+        this.setState({n: this.state.n + 1})
     }
 
     reset(e) {
-        this.setState({live: 0})
+        this.setState({n: 0})
     }
 
-    start(e) {
-        this.timer = window.setInterval(this.updateChrono.bind(this), 1000)
+    play(e) {
+        if (this.state.timer !== null) return;
+
+        window.clearInterval(this.state.timer)
+        this.setState({timer: window.setInterval(this.updateChrono.bind(this), 1000)})
     }
 
-    stop(e) {
-        window.clearInterval(this.timer)
-        this.timer = null;
+    pause(e) {
+        window.clearInterval(this.state.timer)
+        this.setState({timer: null});
+    }
+
+    toggle() {
+        return this.state.timer ? this.pause() : this.play();
+    }
+
+    label() {
+        return this.state.timer ? 'pause' : 'play';
     }
 
     render() {
         return <div className="Chrono">
-            <div>{this.chronoService.toHHMMSS(this.state.live)}</div>
-            <button onClick={this.start.bind(this)} className="btn btn-light mx-5">Start</button>
-            <button onClick={this.stop.bind(this)} className="btn btn-light mx-5">Stop</button>
-            <button onClick={this.reset.bind(this)} className="btn btn-light mx-5">Reset</button>
+            <div>{this.chronoService.toHHMMSS(this.state.n)}</div>
+            <button onClick={this.toggle} className="btn btn-light mx-5">{this.label()}</button>
+            <button onClick={this.reset} className="btn btn-light mx-5">Reset</button>
         </div>
     }
 }
