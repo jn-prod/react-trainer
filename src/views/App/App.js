@@ -1,14 +1,30 @@
 import React from 'react';
 
-import './App.css';
+import './app.scss';
 
 import Chrono from '../../components/Chrono/Chrono'
+import Tv from '../../components/Tv/Tv'
+import Playlist from '../../components/Playlist/Playlist'
 
 class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      playlist: ''
+    }
+    this.onPlaylistSubmit = this.onPlaylistSubmit.bind(this);
+  }
+  onPlaylistSubmit({playlist}, e) {
+    this.setState({ playlist })
+  }
   render() {
-    return <article className="App d-flex">
-      <Chrono />
-    </article>
+    return <main role="main" className="App">
+        <header className="d-flex">
+          <Chrono />
+          <Playlist submitHandler={this.onPlaylistSubmit}/>
+        </header>
+        <Tv playlist={this.state.playlist}/>
+    </main>
   }
 }
 

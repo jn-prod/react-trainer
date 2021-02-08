@@ -1,6 +1,6 @@
 import React from 'react'
 import ChronoService from '../../services/chrono.service'
-import './Chrono.css'
+import './chrono.scss'
 
 class Chrono extends React.Component {
     constructor(props){
@@ -44,11 +44,11 @@ class Chrono extends React.Component {
     }
 
     render() {
-        return <div className="Chrono">
-            <div>{this.chronoService.toHHMMSS(this.state.n)}</div>
-            <button onClick={this.toggle} className="btn btn-light mx-5">{this.label()}</button>
-            <button onClick={this.reset} className="btn btn-light mx-5">Reset</button>
-        </div>
+        return <article className="Chrono">
+            <span>{this.chronoService.toHHMMSS(this.state.n)}</span>
+            <button onClick={this.toggle} className="btn btn-light">{this.label()}</button>
+            <button onClick={this.reset} className="btn btn-light">Reset</button>
+        </article>
     }
 }
 
